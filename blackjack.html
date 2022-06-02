@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="blackjack.css">
+</head>
+
+<body>
+    <h1>BlackJack</h1>
+    <h2 id="message-el">Want to play?</h2>
+    <div>
+        <h3 id="cards-msg">Cards: </h3>
+        <h3 id="sum-msg">Sum: </h3>
+        <h3 id="cardsB-msg">Casino Cards: </h3>
+        <h3 id="sumB-msg">Casino Sum: </h3>
+    </div>
+    <h2 id="result-msg"></h2>
+
+
+    <button id="start-game-button" onclick="startGame()">Start Game</button>
+    <button id="new-card-button" onclick="takeNewCard()">New Card!</button>
+    <button id="stop-game-button" onclick="stop()">Stop!</button>
+    <script src="blackjackPlayer.js"></script>
+
+</body>
+
+</html>
