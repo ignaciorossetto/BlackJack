@@ -6,12 +6,19 @@ let sumB = 0
 
 let hasBlackJack = false
 let isAlive = false
-let playersTurn = false
 let casinosTurn = false
+let gameFinished = false
 
+let player = {
+    name: "Nacho",
+    chips: 150,
+    turn: false
+}
 let cardMsg = document.getElementById('cards-msg')
 let sumMsg = document.getElementById("sum-msg")
 let messageEl = document.getElementById("message-el")
+
+let playerInfo = document.getElementById("player-info")
 
 let cardBMsg = document.getElementById('cardsB-msg')
 let sumBMsg = document.getElementById("sumB-msg")
@@ -38,7 +45,7 @@ function startGame() {
     isAlive = true
     let firstCard = getRandomCard()
     let secondCard = getRandomCard()
-    playersTurn = true
+    player.turn = true
 
     let firstCardB = getRandomCard()
 
@@ -67,7 +74,10 @@ function renderGame() {
         cardBMsg.innerText += " " + cardsB[i] + " " 
     }
 
-    if(playersTurn === true && casinosTurn === false) {
+    playerInfo.innerText = "Name: " + player.name + " / " + "Chips: " + player.chips
+
+
+    if(player.turn === true && casinosTurn === false) {
         if (sum <= 20) {
             message = "Do you want to draw an other card?"
             console.log(sum)
@@ -82,14 +92,25 @@ function renderGame() {
         }
     }
 
-    if(playersTurn === false && casinosTurn === true) {
-        if (sum < sumB) {
+    if(player.turn === false && casinosTurn === true) {
+        if (sum < sumB && sumB <= 21) {
             message = "Casino won!!"
+            player.chips = player.chips - 10
+            gameFinished = true
         } else if (sum > sumB) {
             message = "Player won!!"
-        } else {
+            player.chips = player.chips + 10
+            gameFinished = true
+        } else if (sum === sumB) {
             message = "You're even!!"
-            console.log(sum)
+            gameFinished = true
+        } else if(sum < sumB && sumB > 21) {
+            message = "Player won!!"
+            player.chips = player.chips + 10
+            gameFinished = true
+        } else if (gameFinished = true) {
+            player.turn = false
+            casinosTurn = false
         }
     }
 
@@ -122,7 +143,7 @@ function takeNewCardB() {
 }
 
 function stop() {
-    playersTurn = false
+    player.turn = false
     casinosTurn = true
     if (sumB < 17) {
         takeNewCardB()
